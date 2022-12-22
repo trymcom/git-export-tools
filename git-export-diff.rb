@@ -10,6 +10,7 @@
 #
 # If you want to use with SourceTree, set custom action with argument $SHA
 #
+Encoding.default_external = Encoding::UTF_8
 require "yaml"
 require "optparse"
 require 'shellwords'
@@ -78,7 +79,7 @@ else
   desc = %x[git describe --contains --all #{sha}]
   name = case desc
     when /^tags/
-      desc[/tags\/([\w\/]+)\^0/, 1].strip
+      desc[/tags\/(\w+)\^0/, 1].strip
     when /^remotes/
       desc[/remotes\/(\w+\/\w+)/, 1].gsub("/", "-").strip + "-#{sha[0,7]}"
     else
